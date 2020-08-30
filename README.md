@@ -1,7 +1,7 @@
 # DESAFIO B2W | API STAR WARS
 
 <p align="center">
-  <img src="./src/img/node-tartooise.jpg"/>  
+  <img src="./src/img/planet-sw-tartooise.jpg"/>  
 </p>
 
 ### Bem vindo ao README do aplicativo API StarWars do desafio da empresa B2W

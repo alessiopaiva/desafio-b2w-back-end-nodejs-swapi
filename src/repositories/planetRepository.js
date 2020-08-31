@@ -1,5 +1,13 @@
+/**
+*
+* Arquivo: src/repositories/planetRepository.js
+* Autor: Alessio Paiva Bertolini
+* Descrição: Arquivo responsável pelo acesso ao banco
+*
+*/
 
 import PlanetModel from '../models/planetModel.js'
+// import mongoose from 'mongoose'
 import axios from 'axios'
 
 const getPlanets = async (url, planets) => {
@@ -15,14 +23,10 @@ const getPlanets = async (url, planets) => {
 class PlanetRepository {
 
     constructor(){
-
-        this.model = PlanetModel
+        this.planetModel = PlanetModel    
     }
 
-    create(req, res){
-
-        const { name, climate, terrain } = req.body;
-
+    async create(req){
         getPlanets('https://swapi.co/api/planets', [])
         .forEach(item => {
 			if(item.name === name) {
@@ -30,45 +34,44 @@ class PlanetRepository {
 			}
 		})
 
-        this.planetModel.create(name, climate, terrain)
+        this.planetModel.create(req)
     }
  
-    getAll(){
-
-        const query = this.model.find()
-
-        const promise = query.exec()
-
-        return promise
-    }
-
-    findById(req, res){
-        const { id } = req.params
-
-        const query = this.model.findById(id)
+    async getAll(){
+        const query = this.planetModel.find()
 
         const promise = query.exec()
 
         return promise
     }
 
-    findByName(req, res){
-        const { name } = req.params
-
-        const query = this.model.findOne(name)
+    async findByName(req){
+        const name = req
+        
+        const query = this.planetModel.find({name: name})
 
         const promise = query.exec()
         
         return promise
     }
 
-    delete(req, res){
-        const { id } = req.params
+    async findById(req, res){
+        const id = req
 
-        const query = this.model.deleteOne({ _id: id})
+        const query = this.planetModel.find({_id: id })
 
         const promise = query.exec()
+        
+        return promise
+    }
 
+    async deleteOne(req, res){
+        const id = req
+
+        this.planetModel.deleteOne({_id: req})
+        
+        const promise = query.exec()
+        
         return promise
     }
 }

@@ -1,10 +1,16 @@
+/**
+*
+* Arquivo: src/services/planetService.js
+* Autor: Alessio Paiva Bertolini
+* Descrição: Arquivo responsável pela configuração do banco
+*
+*/
 
 import mongoose from 'mongoose'
 
 class dataBaseConfig {
 
    static async connect(){
-      // Conexao com Banco
       await mongoose.connect(
          process.env.MONGODB_REMOTO_KEY,
           { useUnifiedTopology: true ,  useNewUrlParser: true, useFindAndModify: false})

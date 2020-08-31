@@ -1,50 +1,38 @@
+/**
+*
+* Arquivo: src/services/planetService.js
+* Autor: Alessio Paiva Bertolini
+* Descrição: Arquivo responsável pela regra de negócio da aplicação
+*
+*/
 
 import PlanetRepository from '../repositories/planetRepository.js'
-import axios from 'axios'
-
-const getPlanets = async (url, planets) => {
-
-    let response = await axios.get(url)
-    
-    const resultPlanets = planets.concat(response.data.results)
-    
-	if(response.data.next !== null) {
-		return getPlanets(response.data.next, resultPlanets)
-	} else {
-		return resultPlanets
-	}
-}
 
 class PlanetService {
 
     constructor(){
-
         this.planetRepository = new PlanetRepository()
     }
 
     async create(req, res) {
-
+        console.log('Service' + req)
         this.planetRepository.create(req, res)
     }
 
     async getAll() {
-
         return this.planetRepository.getAll()
     }
 
-    async findByName(req, res){
-
-        return this.planetRepository.findByName(req, res)
+    async findByName(req){
+        return this.planetRepository.findByName(req)
     }
 
-    async findById(req, res){
-
-        return this.planetRepository.findById(req, res)
+    async findById(req){
+        return this.planetRepository.findById(req)
     }
 
-    async delete(req, res){
-
-        this.planetRepository.delete(req, res)
+    async deleteOne(req, res){
+        return this.planetRepository.deleteOne(req)
     }
 }
 

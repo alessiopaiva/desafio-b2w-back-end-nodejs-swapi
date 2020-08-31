@@ -1,8 +1,22 @@
+/**
+*
+* Arquivo: src/models/planetModel.js
+* Autor: Alessio Paiva Bertolini
+* Descrição: Arquivo responsável pelo modelo
+*
+*/
+
+/**
+ * Atributos do Schema:
+ * Nome do Schema: Planeta
+ * id: number
+ * name: string
+ * climate: string
+ * terrain: string
+ */
 
 import mongoose from 'mongoose'
-import Planet from '../domains/planetDomain.js'
 
-// Definindo o modelo (estrutura da collection)
 const PlanetSchema = mongoose.Schema({
     name: {
         type: String,
@@ -18,8 +32,7 @@ const PlanetSchema = mongoose.Schema({
     }
 })
 
-// Objeto que contem os dados
-PlanetSchema.loadClass(Planet )
 
-// Exporta o Schema
-export default mongoose.model('Planet', PlanetSchema)
+const Planet = mongoose.model('Planet', PlanetSchema)
+
+export default Planet

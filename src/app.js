@@ -1,15 +1,21 @@
+/**
+*
+* Arquivo: src/app.js
+* Autor: Alessio Paiva Bertolini
+* Descrição: Arquivo responsável por fazer a chamada do banco e server
+* nos arquivos 'dataBaseConfig.js' e 'server.js', respectivamente
+*
+*/
+
 import Server from '../server.js'
 import DataBaseConfig from './config/dataBaseConfig.js'
-import dotenv from 'dotenv/config.js'
 
 class App {
 
     start(){
 
-        //Conexao ao Banco
         DataBaseConfig.connect()
 
-        //Server
         new Server().start()    
     }
 }

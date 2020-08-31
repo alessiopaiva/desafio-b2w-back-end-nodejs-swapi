@@ -3,12 +3,12 @@ const planetModel = require('../models/PlanetModel');
 const axios = require('axios');
 
 const getPlanets = async (url, planets) => {
-	let response = await axios.get(url);
-	const returnedPlanets = planets.concat(response.data.results);
+	let response = await axios.get(url)
+	const resultPlanet = planets.concat(response.data.results)
 	if(response.data.next !== null) {
-		return getPlanets(response.data.next, returnedPlanets);
+		return getPlanets(response.data.next, resultPlanet)
 	} else {
-		return returnedPlanets;
+		return resultPlanet
 	}
 }
 
@@ -29,13 +29,14 @@ class PlanetController {
 			}
 		})
 
-        await planetModel.create(body)
-        .then(resultado => {
-            return res.status(201).json(resultado)
+        await PlanetModel.create(body)
+        .then(result => {
+            return res.status(201).json(result)
         }, (err) => {
-            return res.status(400).send({ error: { description: "Não foi possível adicionar o planeta."}})
+            return res.status(400).send({ error: { description: "Não foi possível adicionar o planeta.", description: err.message}})
         })
     }
+
 
     /**
 	 * @async getAll
@@ -43,11 +44,14 @@ class PlanetController {
 	 */
 
     async getAll(req, res) {
-        await planetModel.find((err, resultado) => {
-            if(err)
-                return res.status(404).json({ error: { description: "Não foi possível encontrar o planeta", description: err.message } })
+        
+        await PlanetModel.find()
+        .then(result => {
+            return res.status(200).json(result)
+        }, (err) => {
+            return res.status(404).json({ error: { description: "Não foi possível encontrar o planeta", description: err.message } })
             return res.status(200).json(resultado)
-        })
+        }) 
     }
 
     /**
@@ -56,11 +60,13 @@ class PlanetController {
 	 */
 
     async findByName(req, res){
-        const { nome } = req.params
+        const { name } = req.params
 
-        await planetModel.findByOne(nome, (err, resultado) => {
-            if(err)
-                return res.status(404).json({ error: { description: "Não foi possível encontrar o planeta", description: err.message } })
+        await PlanetModel.findOne(name )
+        .then(result => {
+            return res.status(200).json(result)
+        }, (err) => {
+            return res.status(404).json({ error: { description: "Não foi possível encontrar o planeta", description: err.message } })
             return res.status(200).json(resultado)
         })
     }
@@ -73,9 +79,11 @@ class PlanetController {
     async findById(req, res){
         const { id } = req.params
 
-        await planetModel.findById(id, (err, resultado) => {
-            if(err)
-                return res.status(404).json({ error: { description: "Não foi possível encontrar o planeta", description: err.message } });
+        await PlanetModel.findById(id)
+        .then(result => {
+            return res.status(200).json(result)
+        }, (err) => {
+            return res.status(404).json({ error: { description: "Não foi possível encontrar o planeta", description: err.message } });
             return res.status(200).json(resultado)
         })
     }
@@ -88,9 +96,11 @@ class PlanetController {
     async delete(req, res){
         const { id } = req.params
 
-        await planetModel.deleteOne({ _id: id}, (err) => {
-            if(err)
-                return res.status(404).json({ result: "Planeta não foi deletado.", description: err.message })
+        await PlanetModel.deleteOne({ _id: id})
+        .then(result => {
+            return res.status(204).json({ status: true, message: 'Planeta deletado com sucesso'})
+        }, (err) => {
+            return res.status(404).json({ result: "Planeta não foi deletado.", description: err.message })
             return res.status(204).json({ status: true, message: 'Planeta deletado com sucesso'})
         })
     }

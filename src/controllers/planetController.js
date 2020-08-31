@@ -37,7 +37,7 @@ class PlanetController {
 
         const { name, climate, terrain } = req.body
 
-        let planet = new Planet({name, climate, terrain, countFilms: films})
+        let planet = new Planet({name, climate, terrain})
 
         this.planetService.create(planet)
         .then(result => {

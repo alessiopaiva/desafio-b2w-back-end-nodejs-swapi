@@ -6,9 +6,8 @@
 *
 */
 
-import PlanetService from '../services/planetService.js'
-import Planet from '../models/planetModel.js'
-// import Planet from '../domains/planetDomain.js'
+const PlanetService = require('../services/planetService.js')
+const Planet = require('../models/planetModel.js')
 
 class PlanetController {
 
@@ -63,15 +62,15 @@ class PlanetController {
     }
 
     async deleteOne(req, res){
-        const { id } = req.params
+        const id  = req.params
         
         this.planetService.deleteOne(id)
         .then(result => {
             return res.status(204)
         }, (err) => {
-            return res.status(404).json({ erro: {message: 'Planeta não encontrado', description: err.message}})
+            return res.status(404).json({ error: {message: 'Planeta não encontrado', description: err.message}})
         })
     }
 }
 
-export default PlanetController
+module.exports = PlanetController

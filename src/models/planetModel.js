@@ -15,7 +15,7 @@
  * terrain: string
  */
 
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 const PlanetSchema = mongoose.Schema({
     name: {
@@ -35,4 +35,4 @@ const PlanetSchema = mongoose.Schema({
 
 const Planet = mongoose.model('Planet', PlanetSchema)
 
-export default Planet
+module.exports = Planet

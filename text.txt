@@ -3,4 +3,4 @@ req dados do cliente para server
 res dados do server para cliente
 
 domain -> Objeto que contem os dados
-model ->
+model -> 

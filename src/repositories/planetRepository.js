@@ -6,9 +6,8 @@
 *
 */
 
-import PlanetModel from '../models/planetModel.js'
-// import mongoose from 'mongoose'
-import axios from 'axios'
+const PlanetModel = require('../models/planetModel.js')
+const axios = require('axios')
 
 const getPlanets = async (url, planets) => {
 	let response = await axios.get(url);
@@ -68,12 +67,12 @@ class PlanetRepository {
     async deleteOne(req, res){
         const id = req
 
-        this.planetModel.deleteOne({_id: req})
+        this.planetModel.deleteOne({_id: id})
         
-        const promise = query.exec()
+        // query.exec()
         
-        return promise
+        // return promise
     }
 }
 
-export default PlanetRepository
+module.exports = PlanetRepository

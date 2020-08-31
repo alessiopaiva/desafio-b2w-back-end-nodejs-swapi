@@ -6,7 +6,7 @@
 *
 */
 
-import PlanetRepository from '../repositories/planetRepository.js'
+const PlanetRepository = require('../repositories/planetRepository.js')
 
 class PlanetService {
 
@@ -15,7 +15,6 @@ class PlanetService {
     }
 
     async create(req, res) {
-        console.log('Service' + req)
         this.planetRepository.create(req, res)
     }
 
@@ -36,4 +35,4 @@ class PlanetService {
     }
 }
 
-export default PlanetService
+module.exports = PlanetService

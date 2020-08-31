@@ -6,7 +6,7 @@
 *
 */
 
-import mongoose from 'mongoose'
+const mongoose = require('mongoose')
 
 class dataBaseConfig {
 
@@ -31,4 +31,4 @@ class dataBaseConfig {
    }
 }
 
-export default dataBaseConfig
+module.exports = dataBaseConfig

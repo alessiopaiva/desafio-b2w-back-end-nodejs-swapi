@@ -6,8 +6,8 @@
 *
 */
 
-import express from 'express'
-import PlanetController from '../controllers/planetController.js'
+const express = require('express')
+const PlanetController = require('../controllers/planetController.js')
 
 class PlanetRouter {
 
@@ -39,4 +39,4 @@ class PlanetRouter {
 }
 
 
-export default PlanetRouter
+module.exports = PlanetRouter

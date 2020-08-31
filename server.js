@@ -6,8 +6,8 @@
 * e carregar o acesso a porta
 */
 
-import express from 'express'
-import PlanetRouter from './src/routes/planetRouter.js'
+const express = require('express')
+const PlanetRouter = require('../src/routes/planetRouter')
 
 class Server {
 
@@ -34,4 +34,4 @@ class Server {
 
 }
 
-export default Server
+module.exports = Server

@@ -7,8 +7,8 @@
 *
 */
 
-import Server from '../server.js'
-import DataBaseConfig from './config/dataBaseConfig.js'
+const Server = require('../server.js')
+const DataBaseConfig = require('../config/dataBaseConfig')
 
 class App {
 

@@ -6,8 +6,19 @@
 *
 */
 
-const PlanetService = require('../services/planetService.js')
-const Planet = require('../models/planetModel.js')
+const PlanetService = require('../services/planetService')
+const Planet = require('../models/planetModel')
+// const axios = require('axios')
+
+// const getPlanets = async (url, planets) => {
+// 	let response = await axios.get(url);
+// 	const resultPlanets = planets.concat(response.data.results);
+// 	if(response.data.next !== null) {
+// 		return getPlanets(response.data.next, resultPlanets);
+// 	} else {
+// 		return resultPlanets;
+// 	}
+// }
 
 class PlanetController {
 
@@ -17,9 +28,16 @@ class PlanetController {
 
     async create(req, res) {
 
+        // const planets = getPlanets('https://swapi.co/api/planets', [])
+        // planets.forEach(item => {
+		// 	if(item.name === name) {
+		// 		films = item.films.length
+		// 	}
+		// })
+
         const { name, climate, terrain } = req.body
 
-        let planet = new Planet({name, climate, terrain})
+        let planet = new Planet({name, climate, terrain, countFilms: films})
 
         this.planetService.create(planet)
         .then(result => {
@@ -62,11 +80,11 @@ class PlanetController {
     }
 
     async deleteOne(req, res){
-        const id  = req.params
-        
+        const { id }= req.params
+
         this.planetService.deleteOne(id)
         .then(result => {
-            return res.status(204)
+            return res.status(204).send()
         }, (err) => {
             return res.status(404).json({ error: {message: 'Planeta não encontrado', description: err.message}})
         })

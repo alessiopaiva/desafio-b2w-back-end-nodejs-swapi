@@ -7,8 +7,8 @@
 *
 */
 
-const Server = require('../server.js')
-const DataBaseConfig = require('../config/dataBaseConfig')
+const Server = require('../server')
+const DataBaseConfig = require('../src/config/dataBaseConfig')
 
 class App {
 

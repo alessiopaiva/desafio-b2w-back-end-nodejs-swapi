@@ -7,7 +7,7 @@
 */
 
 const express = require('express')
-const PlanetController = require('../controllers/planetController.js')
+const PlanetController = require('../controllers/planetController')
 
 class PlanetRouter {
 
@@ -27,13 +27,13 @@ class PlanetRouter {
 
         this.router.post('/planet', this.planetController.create.bind(this.planetController))
 
-        this.router.get('/planet/list', this.planetController.getAll.bind(this.planetController))
+        this.router.get('/planets', this.planetController.getAll.bind(this.planetController))
 
-        this.router.get('/planet/find/name/:name', this.planetController.findByName.bind(this.planetController))
+        this.router.get('/planet/name/:name', this.planetController.findByName.bind(this.planetController))
 
-        this.router.get('/planet/find/id/:id', this.planetController.findById.bind(this.planetController))
+        this.router.get('/planet/id/:id', this.planetController.findById.bind(this.planetController))
 
-        this.router.delete('/planet/delete/:id', this.planetController.deleteOne.bind(this.planetController))
+        this.router.delete('/planet/:id', this.planetController.deleteOne.bind(this.planetController))
 
     }
 }

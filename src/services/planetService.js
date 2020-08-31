@@ -6,7 +6,7 @@
 *
 */
 
-const PlanetRepository = require('../repositories/planetRepository.js')
+const PlanetRepository = require('../repositories/planetRepository')
 
 class PlanetService {
 
@@ -31,7 +31,7 @@ class PlanetService {
     }
 
     async deleteOne(req, res){
-        return this.planetRepository.deleteOne(req)
+        this.planetRepository.deleteOne(req)
     }
 }
 

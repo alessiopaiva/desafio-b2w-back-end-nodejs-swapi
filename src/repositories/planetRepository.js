@@ -6,18 +6,8 @@
 *
 */
 
-const PlanetModel = require('../models/planetModel.js')
-const axios = require('axios')
+const PlanetModel = require('../models/planetModel')
 
-const getPlanets = async (url, planets) => {
-	let response = await axios.get(url);
-	const resultPlanets = planets.concat(response.data.results);
-	if(response.data.next !== null) {
-		return getPlanets(response.data.next, resultPlanets);
-	} else {
-		return resultPlanets;
-	}
-}
 
 class PlanetRepository {
 
@@ -26,13 +16,6 @@ class PlanetRepository {
     }
 
     async create(req){
-        getPlanets('https://swapi.co/api/planets', [])
-        .forEach(item => {
-			if(item.name === name) {
-				films = item.films.length
-			}
-		})
-
         this.planetModel.create(req)
     }
  
@@ -57,7 +40,7 @@ class PlanetRepository {
     async findById(req, res){
         const id = req
 
-        const query = this.planetModel.find({_id: id })
+        const query = this.planetModel.find({_id: id})
 
         const promise = query.exec()
         
@@ -67,11 +50,9 @@ class PlanetRepository {
     async deleteOne(req, res){
         const id = req
 
-        this.planetModel.deleteOne({_id: id})
+        const query = this.planetModel.deleteOne({_id: id})
         
-        // query.exec()
-        
-        // return promise
+        query.exec()
     }
 }
 

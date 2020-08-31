@@ -7,7 +7,7 @@
 */
 
 const express = require('express')
-const PlanetRouter = require('../src/routes/planetRouter')
+const PlanetRouter = require('./src/routes/planetRouter')
 
 class Server {
 

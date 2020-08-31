@@ -45,3 +45,9 @@ jspm_packages
 
 # Yarn Integrity file
 .yarn-integrity
+
+# KEY BANCO MONGODB
+.env
+
+# TEXT
+text.text

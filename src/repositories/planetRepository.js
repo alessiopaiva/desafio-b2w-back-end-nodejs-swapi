@@ -1,13 +1,6 @@
-/**
- *
- * Arquivo: src/repositories/planetRepository.js
- * Author: Alessio Paiva Bertolini
- * Description: Arquivo responsável por lidar com a lógica dos HTTP's da api.
- *
- */
 
-const PlanetModel = require('../models/planetModel')
-const axios = require('axios')
+import PlanetModel from '../models/planetModel.js'
+import axios from 'axios'
 
 const getPlanets = async (url, planets) => {
 	let response = await axios.get(url);
@@ -22,10 +15,12 @@ const getPlanets = async (url, planets) => {
 class PlanetRepository {
 
     constructor(){
+
         this.model = PlanetModel
     }
 
     create(req, res){
+
         const { name, climate, terrain } = req.body;
 
         getPlanets('https://swapi.co/api/planets', [])
@@ -39,9 +34,11 @@ class PlanetRepository {
     }
  
     getAll(){
+
         const query = this.model.find()
 
         const promise = query.exec()
+
         return promise
     }
 
@@ -51,6 +48,7 @@ class PlanetRepository {
         const query = this.model.findById(id)
 
         const promise = query.exec()
+
         return promise
     }
 
@@ -60,6 +58,7 @@ class PlanetRepository {
         const query = this.model.findOne(name)
 
         const promise = query.exec()
+        
         return promise
     }
 
@@ -69,8 +68,9 @@ class PlanetRepository {
         const query = this.model.deleteOne({ _id: id})
 
         const promise = query.exec()
+
         return promise
     }
 }
 
-module.exports = PlanetRepository
+export default PlanetRepository

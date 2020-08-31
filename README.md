@@ -41,13 +41,13 @@ E com isso há outras depedências que foi usado no projeto, que são:
 
 axios
 
-body-parser
-
 express
 
 mongo
 
 mongoose
+
+dotenv
 
 ------------------------
 

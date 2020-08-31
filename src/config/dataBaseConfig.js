@@ -1,11 +1,12 @@
-const mongoose = require('mongoose')
+
+import mongoose from 'mongoose'
 
 class dataBaseConfig {
 
    static async connect(){
       // Conexao com Banco
       await mongoose.connect(
-         `mongodb://localhost:27017/api-sw-node`,
+         process.env.MONGODB_REMOTO_KEY,
           { useUnifiedTopology: true ,  useNewUrlParser: true, useFindAndModify: false})
           .then(() => {
            console.log('Conectado ao MongoDB');
@@ -24,4 +25,4 @@ class dataBaseConfig {
    }
 }
 
-module.exports = dataBaseConfig
+export default dataBaseConfig

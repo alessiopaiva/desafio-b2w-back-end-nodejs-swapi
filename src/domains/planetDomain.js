@@ -1,3 +1,4 @@
+
 class PlanetDomain{
 
     constructor(name, climate, terrain){
@@ -8,4 +9,4 @@ class PlanetDomain{
     }
 }
 
-module.exports = PlanetDomain
+export default PlanetDomain

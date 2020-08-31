@@ -1,6 +1,7 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const PlanetRouter = require('./src/routes/planetRouter')
+import express from 'express'
+import path from 'path'
+import PlanetRouter from './src/routes/planetRouter.js'
+// import {fileURLToPath} from 'url'
 
 class Server {
 
@@ -11,9 +12,13 @@ class Server {
     }
 
     start(){
+
+        // const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
         // Express middlewares
-        this.app.use(express.urlencoded({ extended: true }))
         this.app.use(express.json())
+        // this.app.use(express.static(path.join(__dirname, 'public')))
+        this.app.use(express.urlencoded({ extended: true }))
 
         // Acesso as rotas
         this.app.use('/api', this.planetRouter.router)
@@ -27,5 +32,6 @@ class Server {
     }
 
 }
+import { fileURLToPath } from 'url'
 
-module.exports = Server
+export default Server

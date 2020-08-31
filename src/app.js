@@ -1,9 +1,11 @@
-const Server = require('../server')
-const DataBaseConfig = require('./config/dataBaseConfig')
+import Server from '../server.js'
+import DataBaseConfig from './config/dataBaseConfig.js'
+import dotenv from 'dotenv/config.js'
 
 class App {
 
     start(){
+
         //Conexao ao Banco
         DataBaseConfig.connect()
 

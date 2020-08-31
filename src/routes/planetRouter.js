@@ -1,13 +1,6 @@
-/**
- *
- * Arquivo: src/router/planetRouter.js
- * Author: Alessio Paiva Bertolini
- * Description: Arquivo responsável por lidar com a lógica dos HTTP's da api.
- *
- */
 
-const express = require('express')
-const PlanetController = require('../controllers/planetController')
+import express from 'express'
+import PlanetController from '../controllers/planetController.js'
 
 class PlanetRouter {
 
@@ -39,4 +32,4 @@ class PlanetRouter {
 }
 
 
-module.exports = PlanetRouter
+export default PlanetRouter

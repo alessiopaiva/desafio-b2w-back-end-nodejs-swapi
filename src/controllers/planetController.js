@@ -1,23 +1,20 @@
-/**
- *
- * Arquivo: src/controllers/planetController.js
- * Author: Alessio Paiva Bertolini
- * Description: Arquivo responsável por lidar com a lógica dos HTTP's da api.
- *
- */
 
-const PlanetModel = require('../models/PlanetModel')
+import PlanetService from '../services/planetService.js'
+import Planet from '../domains/planetDomain.js'
 
 class PlanetController {
 
     constructor(){
-        this.planetModel = new PlanetModel()
+
+        this.planetService = new PlanetService()
     }
 
     async create(req, res) {
-        const { body } = req
 
-        this.planetModel.create(body)
+        let planet = new Planet(req.body.name, req.body.climate, req.body.terrain)
+
+        this.planetService.create(planet)
+
         .then(result => {
             return res.status(201).json(result)
         }, (err) => {
@@ -26,29 +23,34 @@ class PlanetController {
     }
 
     async getAll(req, res) {
-        this.planetModel.find()
+
+        this.planetService.getAll()
+
         .then(result => {
             return res.status(200).json(result)
         }, (err) => {
-            return res.status(404).json({ error: { description: "Não foi possível encontrar o planeta", description: err.message } })
+            return res.status(400).json({ error: { description: "Não foi possível encontrar o planeta", description: err.message } })
         })
     }
 
     async findByName(req, res){
         const { nome } = req.params
 
-        this.planetModel.findByOne(nome)
+        this.planetService.findByName(nome)
+
         .then(result => {
             return res.status(200).json(result)
         }, (err) => {
-            return res.status(404).json({ error: { description: "Não foi possível encontrar o planeta", description: err.message } })
+            return res.status(400).json({ error: { description: "Não foi possível encontrar o planeta", description: err.message } })
         })
     }
 
     async findById(req, res){
+
         const { id } = req.params
 
-        this.planetModel.findById(id)
+        this.planetService.findById(id)
+
         .then(result => {
             return res.status(200).json(result)
         }, (err) => {
@@ -57,15 +59,17 @@ class PlanetController {
     }
 
     async delete(req, res){
+        
         const { id } = req.params
 
-        this.planetModel.deleteOne({ _id: id})
+        this.planetService.delete({ _id: id})
+
         .then(result => {
             return res.status(200).json(result)
         }, (err) => {
-            return res.status(204).json({ status: true, message: 'Planeta deletado com sucesso'})
+            return res.status(400).json({ status: true, message: 'Planeta deletado com sucesso'})
         })
     }
 }
 
-module.exports =  PlanetController
+export default PlanetController

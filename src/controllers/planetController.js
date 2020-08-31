@@ -1,109 +1,71 @@
-const planetModel = require('../models/PlanetModel');
+/**
+ *
+ * Arquivo: src/controllers/planetController.js
+ * Author: Alessio Paiva Bertolini
+ * Description: Arquivo responsável por lidar com a lógica dos HTTP's da api.
+ *
+ */
 
-const axios = require('axios');
-
-const getPlanets = async (url, planets) => {
-	let response = await axios.get(url)
-	const resultPlanet = planets.concat(response.data.results)
-	if(response.data.next !== null) {
-		return getPlanets(response.data.next, resultPlanet)
-	} else {
-		return resultPlanet
-	}
-}
+const PlanetModel = require('../models/PlanetModel')
 
 class PlanetController {
 
-    /**
-	 * @async create
-	 * @description Adiciona um planeta novo
-	 */
+    constructor(){
+        this.planetModel = new PlanetModel()
+    }
 
     async create(req, res) {
         const { body } = req
 
-        getPlanets('https://swapi.co/api/planets', [])
-        .forEach(item => {
-			if(item.name === name) {
-				films = item.films.length
-			}
-		})
-
-        await PlanetModel.create(body)
+        this.planetModel.create(body)
         .then(result => {
             return res.status(201).json(result)
         }, (err) => {
-            return res.status(400).send({ error: { description: "Não foi possível adicionar o planeta.", description: err.message}})
+            return res.status(400).send({ error: { description: "Não foi possível adicionar o planeta."}})
         })
     }
-
-
-    /**
-	 * @async getAll
-	 * @description Lista todos os planetas
-	 */
 
     async getAll(req, res) {
-        
-        await PlanetModel.find()
+        this.planetModel.find()
         .then(result => {
             return res.status(200).json(result)
         }, (err) => {
             return res.status(404).json({ error: { description: "Não foi possível encontrar o planeta", description: err.message } })
-            return res.status(200).json(resultado)
-        }) 
-    }
-
-    /**
-	 * @async findByName
-	 * @description Busca planeta pelo nome
-	 */
-
-    async findByName(req, res){
-        const { name } = req.params
-
-        await PlanetModel.findOne(name )
-        .then(result => {
-            return res.status(200).json(result)
-        }, (err) => {
-            return res.status(404).json({ error: { description: "Não foi possível encontrar o planeta", description: err.message } })
-            return res.status(200).json(resultado)
         })
     }
 
-    /**
-	 * @async findById
-	 * @description Busca planeta pelo id
-	 */
+    async findByName(req, res){
+        const { nome } = req.params
+
+        this.planetModel.findByOne(nome)
+        .then(result => {
+            return res.status(200).json(result)
+        }, (err) => {
+            return res.status(404).json({ error: { description: "Não foi possível encontrar o planeta", description: err.message } })
+        })
+    }
 
     async findById(req, res){
         const { id } = req.params
 
-        await PlanetModel.findById(id)
+        this.planetModel.findById(id)
         .then(result => {
             return res.status(200).json(result)
         }, (err) => {
-            return res.status(404).json({ error: { description: "Não foi possível encontrar o planeta", description: err.message } });
-            return res.status(200).json(resultado)
+            return res.status(404).json({ error: { description: "Não foi possível encontrar o planeta", description: err.message } })
         })
     }
-
-    /**
-	 * @async delete
-	 * @description Deletar planeta pelo id
-	 */
 
     async delete(req, res){
         const { id } = req.params
 
-        await PlanetModel.deleteOne({ _id: id})
+        this.planetModel.deleteOne({ _id: id})
         .then(result => {
-            return res.status(204).json({ status: true, message: 'Planeta deletado com sucesso'})
+            return res.status(200).json(result)
         }, (err) => {
-            return res.status(404).json({ result: "Planeta não foi deletado.", description: err.message })
             return res.status(204).json({ status: true, message: 'Planeta deletado com sucesso'})
         })
     }
 }
 
-module.exports = new PlanetController()
+module.exports =  PlanetController

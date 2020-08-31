@@ -1,29 +1,15 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const planetRouter = require('./router/planetRouter')
-const database = require('./config/dataBaseConfig')
-const app = express()
-const router = express.Router()
+const Server = require('../server')
+const DataBaseConfig = require('./config/dataBaseConfig')
 
-//Config
-const configureExpress = () => {
+class App {
 
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded())
-    app.use(bodyParser.text())
-    app.use(bodyParser.json({ type: "application/json" }))
+    start(){
+        //Conexao ao Banco
+        DataBaseConfig.connect()
 
-    
-
-router.get('/', (req, res) => 
-    res.status().json({ message: "Bem vindo(a) ao desafio B2W com API STAR WARS"})
-)
-
-    //Routes
-    app.use('/api', planetRouter)
-
-    return app
+        //Server
+        new Server().start()    
+    }
 }
 
-module.export = () => database.connect().
-                        then(configureExpress)
+new App().start()

@@ -1,7 +1,7 @@
 # DESAFIO B2W | API STAR WARS
 
 <p align="center">
-  <img src="./src/img/planet-sw-tartooise.jpg"/>  
+  <img src="./public/img/planet-sw-tartooise.jpg"/>  
 </p>
 
 ### Bem vindo ao README do aplicativo API StarWars do desafio da empresa B2W
@@ -20,9 +20,6 @@ As operações do HTTP destina-se em cadastrar, listar e deletar dados de planet
 * Json data (para retornar os dados)
 * PostMan (testar a API criada utilizando as operações)
 
-## Dependências utilizadas ##
-
-
 
 ### Instalando as configurações via cmd ##
 
@@ -33,13 +30,24 @@ Exemplo:
 cd "C:\Users\NomeDoComputador\Desktop\..."
 
 ------------------------
-Para instalar as dependências, dentro do seu projeto digite o comando:
+Para iniciar Node no seu projeto:
 
-
-npm install
+npm init
 
 ------------------------
-Logo em seguida será instalado todas as dependências listadas e definidas no arquivo package.json:
+Logo em seguida será instalado todas as dependências listadas e definidas no arquivo package.json
+
+E com isso há outras depedências que foi usado no projeto, que são:
+
+axios
+
+body-parser
+
+express
+
+mongo
+
+mongoose
 
 ------------------------
 
@@ -49,9 +57,13 @@ mongod
 
 ------------------------
 
-Para iniciar as funcionalidades dentro do seu projeto, o comando será:
+Para instalar o Nodemon no seu projeto mas no ambiente desenvolvimento:
 
-npm start
+npm i -D nodemon
+------------------------
+Para iniciar seu projeto. No caso foi inicializado pelo ambiente desenvolvimento:
+
+npm run dev
 
 ------------------------
 

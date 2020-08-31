@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
+const PlanetDomain = require('../domains/planetDomain')
 
-// Criação do Schema
-const PlanetSchema = new mongoose.Schema({
+// Definindo o modelo (estrutura da collection)
+const PlanetSchema = mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -16,6 +17,8 @@ const PlanetSchema = new mongoose.Schema({
     }
 })
 
-// Exporta o model
+// Objeto que contem os dados
+PlanetSchema.loadClass(PlanetDomain)
 
+// Exporta o Schema
 module.exports = mongoose.model('Planet', PlanetSchema)

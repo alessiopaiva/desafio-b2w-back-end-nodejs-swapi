@@ -1,4 +1,8 @@
-# DESAFIO B2W | API STAR WARS
+
+
+# DESAFIO B2W | API STAR WARS | Feito por: Alessio Paiva Bertolini
+
+Update date: 2020-01-09
 
 <p align="center">
   <img src="./public/img/planet-sw-tartooise.jpg"/>  
@@ -11,6 +15,8 @@ As operações do HTTP destina-se em cadastrar, listar e deletar dados de planet
 
 **URL Base:** [http://localhost:27017/api-sw-node/](http://localhost:27017/api-sw-node/)
 
+**URL da API Star Wars:** [https://swapi.dev/api/planet](https://swapi.dev/api/planet)
+
 ## Utilizados no Desenvolvimento ##
 
 * Node.Js
@@ -20,71 +26,244 @@ As operações do HTTP destina-se em cadastrar, listar e deletar dados de planet
 * Json data (para retornar os dados)
 * PostMan (testar a API criada utilizando as operações)
 
+## Observações ##
+
+É necessario configurar a chave do mongo no arquivo .env
+
 
 ### Instalando as configurações via cmd ##
 
-Com cmd aberto, e digite url do diretório do seu projeto
+Com cmd aberto digite a url do diretório do seu projeto
 
 Exemplo:
 
 cd "C:\Users\NomeDoComputador\Desktop\..."
 
 ------------------------
-Para iniciar Node no seu projeto:
+Node.js usa um gerenciador de pacotes de NPM, para iniciar o Node no seu projeto:
 
 npm init
 
-------------------------
-Logo em seguida será instalado todas as dependências listadas e definidas no arquivo package.json
+-------------------------------
+Logo em seguida haverá configurações para inicializar o seu projeto:
 
-E com isso há outras depedências que foi usado no projeto, que são:
+Exemplo:
 
-axios
+package name: (b2w-desafio-back-end-nodejs-swapi)  -- apertar enter
 
-express
+version: (1.0.0) -- apertar enter
 
-mongo
+keywords: -- apertar enter
 
-mongoose
+license(ISC) -- apertar enter
 
-dotenv
-
-------------------------
-
-Para instalar o Mongodb:
-
-mongod
+Is this Ok? -- conferir e apertar enter
 
 ------------------------
-
-Para instalar o Nodemon no seu projeto mas no ambiente desenvolvimento:
-
-npm i -D nodemon
-------------------------
-Para iniciar seu projeto. No caso foi inicializado pelo ambiente desenvolvimento:
-
-npm run dev
+Após configurar o seu projeto, em seguida será instalado todas as dependências listadas e definidas na pasta package.json
 
 ------------------------
+Com comando abaixo e nome da sua dependência, será possível utilizá-la no projeto:
+(Instalada no ambiente de produção)
 
+npm install (nome da depedência)
+
+------------------------
+As depedências que foram usadas no projeto:
+
+express - (Configura a rota das aplicações)
+
+mongo - (Configura o Banco ao Node)
+
+mongoose - (Ferramenta de modelagem de objetos do MongoDB trabalhada em um ambiente assíncrono)
+
+dotenv - (Configura uma variável de ambiente, no qual foi usada para chave ao acesso ao MongoDB)
+
+star-wars-api - (API Star Wars utilizada para aplicações do projeto)
+
+------------------------
+
+Para instalar apenas no ambiente de desenvolvimento:
+
+npm install --save-dev (nome da dependência escolhida)
+
+------------------------
+
+Dependência instalada no ambiente desenvolvimento:
+
+nodemon - (Ferramente utilizada para aplicações de carregamento automático)
+
+------------------------
+ 
 ## PASSO A PASSO DAS EXECUÇÕES DO PROJETO
+
+Para iniciar o projeto:
+
+npm run dev (Para iniciar pelo ambiente de desenvolvimento)
+
+ou
+
+npm start (Para iniciar pelo ambiente de produção)
 
 ## Adicionar planeta
 
 `POST /planet`
+## Status 201
 
-## Buscar planeta pelo nome
+Exemplo:
 
-`GET /planet/find/:name` 
+Request Body
 
-## Buscar planeta pelo id
+```json
+{
+	  "name": "Naboo",
+	  "climate": "Frio",
+	  "terrain": "Relevo"
+}
 
-`GET /planet/find/:id`
+Response
 
-## Remover planeta pelo id
+```json
 
-`DELETE /planet/delete/:id`
+{
+    "_id": "5f4ecad4660eac4944ed7b61",
+    "name": "Hoth",
+    "climate": "Frio",
+    "terrain": "Relevo",
+    "totalAppearances": 1
+}
+```
+## Status 400
+
+Response
+
+```json
+
+{
+  "error":
+  {
+    "message": "Não foi possível adicionar o planeta",
+  }
+}
+```
+
+
 
 ## Listar todos os planetas
 
-`GET /planet/list`
+`GET /planets`
+
+## Status 200
+
+Response
+
+```json
+
+{
+    "_id": "5f4ecad4660eac4944ed7b61",
+    "name": "Hoth",
+    "climate": "Frio",
+    "terrain": "Relevo",
+    "totalAppearances": 1
+}
+```
+
+## Status 200
+
+Response
+
+```json
+
+{
+  "error":
+  {
+    "message": "Não foi possível encontrar os planetas",
+  }
+}
+```
+
+## Buscar planeta pelo nome
+
+`GET /planet/name/name/Hoth`
+
+## Status 200
+
+Response
+
+```json
+
+{
+    "_id": "5f4ecad4660eac4944ed7b61",
+    "name": "Hoth",
+    "climate": "Frio",
+    "terrain": "Relevo",
+    "totalAppearances": 1
+}
+```
+
+## Status 400
+
+Response
+
+```json
+
+{
+  "error":
+  {
+    "message": "Não foi possível encontrar o planeta",
+  }
+}
+```
+
+
+## Buscar planeta pelo id
+
+`GET /planet/id/5f4ecad4660eac4944ed7b61`
+
+Status 200
+
+Response
+
+```json
+
+{
+    "_id": "5f4ecad4660eac4944ed7b61",
+    "name": "Hoth",
+    "climate": "Frio",
+    "terrain": "Relevo",
+    "totalAppearances": 1
+}
+```
+
+## Status 404
+
+Response
+
+```json
+{
+  "error":
+  {
+    "message": "Não foi possível encontrar o planeta",
+  }
+}
+```
+
+
+## Remover planeta pelo id
+
+`DELETE /planet/5f4ecad4660eac4944ed7b61`
+
+## Status 204
+
+## Status 404
+
+```json
+{
+  "error":
+  {
+    "message": "Não foi possível encontrar o planeta",
+  }
+}
+```
+
+Dúvidas e/ou sugestões enviar email para: alessio.bertolini@gmail.com

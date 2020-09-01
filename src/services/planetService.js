@@ -2,7 +2,7 @@
 *
 * Arquivo: src/services/planetService.js
 * Autor: Alessio Paiva Bertolini
-* Descrição: Arquivo responsável pela regra de negócio da aplicação
+* Descrição: Classe responsável pela regra de negócio da aplicação
 *
 */
 

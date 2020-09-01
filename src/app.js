@@ -2,7 +2,7 @@
 *
 * Arquivo: src/app.js
 * Autor: Alessio Paiva Bertolini
-* Descrição: Arquivo responsável por fazer a chamada do banco e server
+* Descrição: Classe responsável por fazer a chamada do banco e server
 * nos arquivos 'dataBaseConfig.js' e 'server.js', respectivamente
 *
 */

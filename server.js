@@ -2,7 +2,7 @@
 *
 * Arquivo: server.js
 * Autor: Alessio Paiva Bertolini
-* Descrição: Arquivo responsável por fazer chamada da rota no arquivo 'planetRouter.js'
+* Descrição: Classe responsável por fazer chamada da rota no arquivo 'planetRouter.js'
 * e carregar o acesso a porta
 */
 

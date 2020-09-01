@@ -29,7 +29,11 @@ const PlanetSchema = mongoose.Schema({
     terrain: {
         type: String,
         required: true
-    }
+    },
+    totalAppearances: {
+		type: Number,
+		required: false
+	},
 })
 
 

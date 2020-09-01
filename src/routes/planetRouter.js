@@ -2,7 +2,7 @@
 *
 * Arquivo: src/routes/planetRouter.js
 * Autor: Alessio Paiva Bertolini
-* Descrição: Arquivo responsável por carregar todas as rotas
+* Descrição: Classe responsável por carregar todas as rotas
 *
 */
 

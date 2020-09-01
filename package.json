@@ -19,11 +19,11 @@
   },
   "homepage": "https://github.com/alessiopaiva/desafio-b2w-back-end-nodejs-swapi#readme",
   "dependencies": {
-    "axios": "^0.20.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongo": "^2.0.0",
-    "mongoose": "^5.10.2"
+    "mongoose": "^5.10.2",
+    "star-wars-api": "^1.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

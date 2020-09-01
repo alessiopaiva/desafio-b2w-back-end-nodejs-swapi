@@ -48,6 +48,3 @@ jspm_packages
 
 # KEY BANCO MONGODB
 .env
-
-# TEXT
-text.txt

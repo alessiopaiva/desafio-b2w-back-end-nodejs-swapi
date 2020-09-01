@@ -2,13 +2,13 @@
 *
 * Arquivo: src/services/planetService.js
 * Autor: Alessio Paiva Bertolini
-* Descrição: Arquivo responsável pela configuração do banco
+* Descrição: Classe responsável pela configuração do banco
 *
 */
 
 const mongoose = require('mongoose')
 
-class dataBaseConfig {
+class DataBaseConfig {
 
    static async connect(){
       await mongoose.connect(
@@ -31,4 +31,4 @@ class dataBaseConfig {
    }
 }
 
-module.exports = dataBaseConfig
+module.exports = DataBaseConfig

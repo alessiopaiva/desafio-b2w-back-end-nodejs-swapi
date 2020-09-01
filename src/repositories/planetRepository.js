@@ -2,7 +2,7 @@
 *
 * Arquivo: src/repositories/planetRepository.js
 * Autor: Alessio Paiva Bertolini
-* Descrição: Arquivo responsável pelo acesso ao banco
+* Descrição: Classe responsável pelo acesso ao banco
 *
 */
 

@@ -2,48 +2,40 @@
 *
 * Arquivo: src/controllers/planetController.js
 * Autor: Alessio Paiva Bertolini
-* Descrição: Arquivo responsável por lidar com a camada de controle HTTP da api
+* Descrição: Classe responsável por lidar com a camada de controle HTTP da api
 *
 */
 
 const PlanetService = require('../services/planetService')
 const Planet = require('../models/planetModel')
-// const axios = require('axios')
-
-// const getPlanets = async (url, planets) => {
-// 	let response = await axios.get(url);
-// 	const resultPlanets = planets.concat(response.data.results);
-// 	if(response.data.next !== null) {
-// 		return getPlanets(response.data.next, resultPlanets);
-// 	} else {
-// 		return resultPlanets;
-// 	}
-// }
+const StarWarsAPI = require('star-wars-api')
 
 class PlanetController {
 
     constructor(){
         this.planetService = new PlanetService()
+        this.swApi = new StarWarsAPI()
     }
-
+    
     async create(req, res) {
+        const { name, climate, terrain} = req.body
 
-        // const planets = getPlanets('https://swapi.co/api/planets', [])
-        // planets.forEach(item => {
-		// 	if(item.name === name) {
-		// 		films = item.films.length
-		// 	}
-		// })
+        await this.swApi.get(`https://swapi.dev/api/planets/?search=${name}`)
+        .then( (result) =>  {
+                var totalFilms = 0
+                result.results.forEach(item => {
+                    if(item.name === name) {
+                        totalFilms = item.films.length;
+                    } 
+                })
+                
+                let planetM = new Planet({name, climate, terrain, totalAppearances: totalFilms})
+                this.planetService.create(planetM)
 
-        const { name, climate, terrain } = req.body
+                return res.status(201).json({result: {description: 'Planeta adicionado'}})
 
-        let planet = new Planet({name, climate, terrain})
-
-        this.planetService.create(planet)
-        .then(result => {
-            return res.status(201).json({result: {description: 'Planeta adicionado'}})
-        }, (err) => {
-            return res.status(400).send({error: { message: 'Não foi possível adicionar o planeta', description: err.message}})
+            }, (err) => {
+                return res.status(400).send({error: { message: 'Não foi possível adicionar o planeta', description: err.message}})
         })
     }
 

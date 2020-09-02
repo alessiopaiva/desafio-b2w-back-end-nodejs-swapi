@@ -21,11 +21,11 @@ class PlanetController {
 
         switch(result){
             case 'invalid':
-                return res.status(404).json({ error: { message: 'Planeta inválido'}})
+                return res.status(404).json({ message: 'Planeta inválido'})
             case 'exist':
-                return res.status(400).json({ error: { message: 'Planeta existente'}})
+                return res.status(400).json({ message: 'Planeta existente'})
             case false:
-                return res.status(500).json({ error: { message: 'Não foi possível adicionar'}})
+                return res.status(500).json({ message: 'Não foi possível adicionar'})
             default:
                 return res.status(201).json({result: result})
         }
@@ -34,8 +34,8 @@ class PlanetController {
     async getAll(req, res) {
         const result = await this.planetService.getAll()
        
-        if(result.length == 0 || result.length != 0){
-            return res.status(404).json({ error: { message: 'Não foi possível encontrar os planetas'}})
+        if(result.length == 0){
+            return res.status(404).json({ message: 'Não foi possível encontrar os planetas'})
         } else {
             return res.status(200).json(result)
         }
@@ -44,9 +44,9 @@ class PlanetController {
     async findByName(req, res){
         const { name } = req.params
         const result = await this.planetService.findByName(name)
-
+  
         if(result.length == 0){
-            return res.status(404).json({ error: { message: 'Não foi possível encontrar o planeta'}}) 
+            return res.status(404).json({ message: 'Não foi possível encontrar o planeta'}) 
         } else {
             return res.status(200).json(result)
         }
@@ -57,7 +57,7 @@ class PlanetController {
         const result = await this.planetService.findById(id)
         
         if(result.length == 0){
-            return res.status(404).json({ error: { message: 'Não foi possível encontrar o planeta'}})
+            return res.status(404).json({ message: 'Não foi possível encontrar o planeta'})
         } else {
             return res.status(200).json(result)
         }
@@ -68,7 +68,7 @@ class PlanetController {
         const result = await this.planetService.deleteOne(id)
         
         if(result.deletedCount == 0){
-            return res.status(404).json({error: { message: 'Planeta não encontrado'}})
+            return res.status(404).json({ message: 'Planeta não encontrado'})
         } else {
             return res.status(204).send()  
         }

@@ -7,8 +7,6 @@
 */
 
 const PlanetService = require('../services/planetService')
-const Planet = require('../models/planetModel')
-const axios = require('axios')
 
 class PlanetController {
 
@@ -18,84 +16,62 @@ class PlanetController {
     
     async create(req, res) {
         const { name, climate, terrain} = req.body
-        
-        this.planetService.findByName(name)
-        .then( (result) => {
-            if(result.length == 0){
 
-                axios.get('https://swapi.dev/api/planets/?search=' + name)
-                .then( (result) =>  {
+        const result = await this.planetService.create(name, climate, terrain, res)
 
-                    var totalFilms = 0
-                    result.data.results.forEach(item => {
-                        if(item.name === name) {
-                            totalFilms = item.films.length
-                        } 
-                    })
-                    
-                console.log("O planeta ".concat(name).concat(" tem ").concat(totalFilms).concat(" aparições")) 
-                   
-                let planet = new Planet({name, climate, terrain, appearances: totalFilms})
-                this.planetService.create(planet)
-
-                return res.status(201).json({result: { planet }})
-
-                }, (err) => {
-                    return res.status(400).send({error: { message: 'Não foi possível adicionar o planeta'}})
-                })
-            } else {
-                return res.status(400).send({error: { message: 'Planeta já existente'}})
-            }
-        })
+        switch(result){
+            case 'invalid':
+                return res.status(404).json({ error: { message: 'Planeta inválido'}})
+            case 'exist':
+                return res.status(400).json({ error: { message: 'Planeta existente'}})
+            case false:
+                return res.status(500).json({ error: { message: 'Não foi possível adicionar'}})
+            default:
+                return res.status(201).json({result: result})
+        }
     }
 
     async getAll(req, res) {
-
-        this.planetService.getAll()
-        .then(result => {
+        const result = await this.planetService.getAll()
+       
+        if(result.length == 0 || result.length != 0){
+            return res.status(404).json({ error: { message: 'Não foi possível encontrar os planetas'}})
+        } else {
             return res.status(200).json(result)
-        }, (err) => {
-            return res.status(404).json({ error: { message: "Não foi possível encontrar os planetas"}})
-        })
+        }
     }
 
     async findByName(req, res){
         const { name } = req.params
-        
-        this.planetService.findByName(name)
-        .then(result => {
-            if(result.length == 0){
-                return res.status(404).json({ error: { message: "Não foi possível encontrar o planeta"}})
-            }
+        const result = await this.planetService.findByName(name)
+
+        if(result.length == 0){
+            return res.status(404).json({ error: { message: 'Não foi possível encontrar o planeta'}}) 
+        } else {
             return res.status(200).json(result)
-        }, (err) => {
-            return res.status(400).json({error: { message: err.message}})
-        })
+        }
     }
 
     async findById(req, res){
         const { id } = req.params
-
-        this.planetService.findById(id)
-        .then(result => {
-            if(result.length == 0){
-                return res.status(404).json({ error: { message: "Não foi possível encontrar o planeta"}})
-            } 
+        const result = await this.planetService.findById(id)
+        
+        if(result.length == 0){
+            return res.status(404).json({ error: { message: 'Não foi possível encontrar o planeta'}})
+        } else {
             return res.status(200).json(result)
-        }, (err) => {
-            return res.status(400).json({error: { message: err.message}})
-        })
+        }
     }
 
     async deleteOne(req, res){
-        const { id }= req.params
-
-        this.planetService.deleteOne(id)
-        .then(result => {
-            return res.status(204).send()
-        }, (err) => {
-            return res.status(400).json({error: { message: 'Planeta não encontrado'}})
-        })
+        const { id } = req.params
+        const result = await this.planetService.deleteOne(id)
+        
+        if(result.deletedCount == 0){
+            return res.status(404).json({error: { message: 'Planeta não encontrado'}})
+        } else {
+            return res.status(204).send()  
+        }
     }
 }
 

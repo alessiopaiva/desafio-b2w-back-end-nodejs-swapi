@@ -2,7 +2,7 @@
 
 # DESAFIO B2W | API STAR WARS
 
-Update date: 2020-01-09
+Update date: 2020-01-09 |
 Feito por: Alessio Paiva Bertolini
 
 <p align="center">
@@ -107,6 +107,47 @@ ou
 
 npm start (Para iniciar pelo ambiente de produção)
 
+## OBSERVAÇÕES DA EXECUÇÃO
+
+De acordo com a resquest do HTTP, será encaminhado pela rota na url, que está definido na classe planetRouter
+
+O Projeto está dividido em 3 camadas (Controller, Service, Repository)
+
+Após a escolha da rota, será encaminhado para função do controller.
+A classe planetController é responsável pelo status do response.
+Após isso será direcionado a classe planetService.
+No qual essa classe é responsável pela regra de negócios.
+Logo em seguida será encaminhado a classe planetRepository que está ligado diretamente ao Model, a classe planetModel.
+Por sua vez será encarregado a criar/buscar/deletar as informações do Mongodb.
+
+Objetivo esse é não ter tantas responsabilidades para cada classe, e encapsular as informações de cada dado.
+
+A cada ação HTTP utilizei o programa PostMan, para assim testar a cada funcionalidade do projeto.
+
+------------------------
+Algumas observações das ações que adotei para criação desse projeto.
+Como não havia restrição na descrição do desafio, então escolhi em obtar em fazer essas validações.
+
+> create()
+
+```
+Há uma outra camada de classe que é a Client.
+Ela está destinada a buscar as informações pelo nome através da url da api SWAPI, 
+utilizando a dependência axios.
+
+Observações na criação:
+Só é possivel criar um planeta caso o nome seja igual ao que consta na API SWAPI.
+E não é possível criar um novo planeta com o mesmo nome que está no banco.
+```
+
+>findByName()
+
+```
+É possível buscar todos planetas listados no banco.
+E também é possível buscar apenas umas das primeiras letras da palavra.
+```
+
+
 ## Adicionar planeta
 
 `POST /planet`
@@ -127,7 +168,7 @@ Response
 ```json
 
 {
-    "_id": "5f4ecad4660eac4944ed7b61",
+    "_id": "5f50074e16f26031982c94ef",
     "name": "Hoth",
     "climate": "Frio",
     "terrain": "Relevo",
@@ -135,7 +176,7 @@ Response
 }
 ```
 
-> Status 400 (Erro ao adicionar)
+> Status 500 (Erro ao adicionar)
 
 Response
 
@@ -163,6 +204,20 @@ Response
 }
 ```
 
+> Status 404 (Erro do nome inválido)
+
+Response
+
+```json
+
+{
+  "error":
+  {
+    "message": "Planeta inválido",
+  }
+}
+```
+
 ## Listar todos os planetas
 
 `GET /planets`
@@ -174,7 +229,7 @@ Response
 ```json
 
 {
-    "_id": "5f4ecad4660eac4944ed7b61",
+    "_id": "5f50074e16f26031982c94ef",
     "name": "Hoth",
     "climate": "Frio",
     "terrain": "Relevo",
@@ -182,7 +237,7 @@ Response
 }
 ```
 
-> Status 400
+> Status 404
 
 Response
 
@@ -207,7 +262,7 @@ Response
 ```json
 
 {
-    "_id": "5f4ecad4660eac4944ed7b61",
+    "_id": "5f50074e16f26031982c94ef",
     "name": "Hoth",
     "climate": "Frio",
     "terrain": "Relevo",
@@ -226,7 +281,7 @@ Response
 ```json
 
 {
-    "_id": "5f4ecad4660eac4944ed7b61",
+    "_id": "5f50074e16f26031982c94ef",
     "name": "Hoth",
     "climate": "Frio",
     "terrain": "Relevo",
@@ -234,7 +289,7 @@ Response
 }
 ```
 
-> Status 400
+> Status 404
 
 Response
 
@@ -251,7 +306,7 @@ Response
 
 ## Buscar planeta pelo id
 
-`GET /planet/id/5f4ecad4660eac4944ed7b61`
+`GET /planet/id/5f50074e16f26031982c94ef`
 
 > Status 200
 
@@ -260,7 +315,7 @@ Response
 ```json
 
 {
-    "_id": "5f4ecad4660eac4944ed7b61",
+    "_id": "5f50074e16f26031982c94ef",
     "name": "Hoth",
     "climate": "Frio",
     "terrain": "Relevo",
@@ -284,7 +339,7 @@ Response
 
 ## Remover planeta pelo id
 
-`DELETE /planet/5f4ecad4660eac4944ed7b61`
+`DELETE /planet/5f50074e16f26031982c94ef`
 
 > Status 204
 
@@ -300,7 +355,7 @@ Response
 {
   "error":
   {
-    "message": "Não foi possível encontrar o planeta",
+    "message": "Planeta não encontrado",
   }
 }
 ```

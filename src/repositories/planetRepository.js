@@ -16,7 +16,7 @@ class PlanetRepository {
     }
 
     async create(req){
-        this.planetModel.create(req)
+        return this.planetModel.create(req)
     }
  
     async getAll(){
@@ -52,7 +52,9 @@ class PlanetRepository {
 
         const query = this.planetModel.deleteOne({_id: id})
         
-        query.exec()
+        const promise = query.exec()
+        
+        return promise
     }
 }
 

@@ -10,7 +10,8 @@ Update date: 2020-01-09
 
 ### Bem vindo ao README do aplicativo API StarWars do desafio da empresa B2W
 
-Projeto foi desenvolvido com arquitetura API REST conjunto ao Node.js e com objetivo de gerenciar dados de planetas do filme Star Wars.
+Projeto foi desenvolvido com arquitetura API REST conjunto ao Node.js, aplicados Design Pattern Service e Repository e DTO.
+Sendo assim, com objetivo de gerenciar dados de planetas do filme Star Wars.
 As operações do HTTP destina-se em cadastrar, listar e deletar dados de planetas.
 
 **URL Base:** [http://localhost:27017/api-sw-node/](http://localhost:27017/api-sw-node/)
@@ -108,9 +109,8 @@ npm start (Para iniciar pelo ambiente de produção)
 ## Adicionar planeta
 
 `POST /planet`
-## Status 201
 
-Exemplo:
+> Status 201
 
 Request Body
 
@@ -133,7 +133,8 @@ Response
     "totalAppearances": 1
 }
 ```
-## Status 400
+
+> Status 400 (Erro ao adicionar)
 
 Response
 
@@ -147,13 +148,25 @@ Response
 }
 ```
 
+> Status 400 (Erro do nome já existente)
 
+Response
+
+```json
+
+{
+  "error":
+  {
+    "message": "Planeta já existente",
+  }
+}
+```
 
 ## Listar todos os planetas
 
 `GET /planets`
 
-## Status 200
+> Status 200
 
 Response
 
@@ -168,7 +181,7 @@ Response
 }
 ```
 
-## Status 200
+> Status 400
 
 Response
 
@@ -186,7 +199,7 @@ Response
 
 `GET /planet/name/name/Hoth`
 
-## Status 200
+> Status 200
 
 Response
 
@@ -201,7 +214,26 @@ Response
 }
 ```
 
-## Status 400
+## Listar todos os planetas com a primeira letra da busca
+
+`GET /planets/H`
+
+> Status 200
+
+Response
+
+```json
+
+{
+    "_id": "5f4ecad4660eac4944ed7b61",
+    "name": "Hoth",
+    "climate": "Frio",
+    "terrain": "Relevo",
+    "totalAppearances": 1
+}
+```
+
+> Status 400
 
 Response
 
@@ -220,7 +252,7 @@ Response
 
 `GET /planet/id/5f4ecad4660eac4944ed7b61`
 
-Status 200
+> Status 200
 
 Response
 
@@ -235,7 +267,7 @@ Response
 }
 ```
 
-## Status 404
+> Status 404
 
 Response
 
@@ -253,9 +285,15 @@ Response
 
 `DELETE /planet/5f4ecad4660eac4944ed7b61`
 
-## Status 204
+> Status 204
 
-## Status 404
+Response
+
+```json
+
+```
+
+> Status 404
 
 ```json
 {

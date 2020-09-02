@@ -19,23 +19,33 @@ class PlanetController {
     
     async create(req, res) {
         const { name, climate, terrain} = req.body
+        
+        this.planetService.findByName(name)
+        .then( (result) => {
+            if(result.length == 0){
 
-        await this.swApi.get(`https://swapi.dev/api/planets/?search=${name}`)
-        .then( (result) =>  {
-                var totalFilms = 0
-                result.results.forEach(item => {
-                    if(item.name === name) {
-                        totalFilms = item.films.length;
-                    } 
+                this.swApi.get(`https://swapi.dev/api/planets/?search=${name}`)
+                .then( (result) =>  {
+                    var totalFilms = 0
+                    result.results.forEach(item => {
+                        if(item.name === name) {
+                            totalFilms = item.films.length
+                        } 
+                    })
+                    
+                console.log("O planeta ".concat(name).concat(" tem ").concat(totalFilms).concat(" aparições"))
+
+                let planet = new Planet({name, climate, terrain, totalAppearances: totalFilms})
+                this.planetService.create(planet)
+
+                return res.status(201).json({result: { planet }})
+
+                }, (err) => {
+                    return res.status(400).send({error: { message: 'Não foi possível adicionar o planeta'}})
                 })
-                
-                let planetM = new Planet({name, climate, terrain, totalAppearances: totalFilms})
-                this.planetService.create(planetM)
-
-                return res.status(201).json({result: {description: 'Planeta adicionado'}})
-
-            }, (err) => {
-                return res.status(400).send({error: { message: 'Não foi possível adicionar o planeta', description: err.message}})
+            } else {
+                return res.status(400).send({error: { message: 'Planeta já existente'}})
+            }
         })
     }
 
@@ -45,7 +55,7 @@ class PlanetController {
         .then(result => {
             return res.status(200).json(result)
         }, (err) => {
-            return res.status(400).json({ error: { message: 'Não foi possível encontrar os planetas', description: err.message }})
+            return res.status(404).json({ error: { message: "Não foi possível encontrar os planetas"}})
         })
     }
 
@@ -54,9 +64,12 @@ class PlanetController {
         
         this.planetService.findByName(name)
         .then(result => {
+            if(result.length == 0){
+                return res.status(404).json({ error: { message: "Não foi possível encontrar o planeta"}})
+            }
             return res.status(200).json(result)
         }, (err) => {
-            return res.status(400).json({ error: { message: "Não foi possível encontrar o planeta", description: err.message }})
+            return res.status(400).json({error: { message: err.message}})
         })
     }
 
@@ -65,9 +78,12 @@ class PlanetController {
 
         this.planetService.findById(id)
         .then(result => {
+            if(result.length == 0){
+                return res.status(404).json({ error: { message: "Não foi possível encontrar o planeta"}})
+            } 
             return res.status(200).json(result)
         }, (err) => {
-            return res.status(404).json({ error: { message: "Não foi possível encontrar o planeta", description: err.message }})
+            return res.status(400).json({error: { message: err.message}})
         })
     }
 
@@ -78,7 +94,7 @@ class PlanetController {
         .then(result => {
             return res.status(204).send()
         }, (err) => {
-            return res.status(404).json({ error: {message: 'Planeta não encontrado', description: err.message}})
+            return res.status(400).json({error: { message: 'Planeta não encontrado'}})
         })
     }
 }

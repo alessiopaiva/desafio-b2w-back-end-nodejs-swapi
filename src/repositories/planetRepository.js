@@ -30,7 +30,7 @@ class PlanetRepository {
     async findByName(req){
         const name = req
         
-        const query = this.planetModel.find({name: name})
+        const query = this.planetModel.find({"name": {$regex: '^' + name, $options: 'i'}})
 
         const promise = query.exec()
         

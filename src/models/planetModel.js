@@ -30,7 +30,7 @@ const PlanetSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    totalAppearances: {
+    appearances: {
 		type: Number,
 		required: false
 	},

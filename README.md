@@ -1,8 +1,9 @@
 
 
-# DESAFIO B2W | API STAR WARS | Feito por: Alessio Paiva Bertolini
+# DESAFIO B2W | API STAR WARS
 
 Update date: 2020-01-09
+Feito por: Alessio Paiva Bertolini
 
 <p align="center">
   <img src="./public/img/planet-sw-tartooise.jpg"/>  

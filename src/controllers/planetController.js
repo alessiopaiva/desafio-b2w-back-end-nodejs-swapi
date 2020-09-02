@@ -8,13 +8,12 @@
 
 const PlanetService = require('../services/planetService')
 const Planet = require('../models/planetModel')
-const StarWarsAPI = require('star-wars-api')
+const axios = require('axios')
 
 class PlanetController {
 
     constructor(){
         this.planetService = new PlanetService()
-        this.swApi = new StarWarsAPI()
     }
     
     async create(req, res) {
@@ -24,18 +23,19 @@ class PlanetController {
         .then( (result) => {
             if(result.length == 0){
 
-                this.swApi.get(`https://swapi.dev/api/planets/?search=${name}`)
+                axios.get('https://swapi.dev/api/planets/?search=' + name)
                 .then( (result) =>  {
+
                     var totalFilms = 0
-                    result.results.forEach(item => {
+                    result.data.results.forEach(item => {
                         if(item.name === name) {
                             totalFilms = item.films.length
                         } 
                     })
                     
-                console.log("O planeta ".concat(name).concat(" tem ").concat(totalFilms).concat(" aparições"))
-
-                let planet = new Planet({name, climate, terrain, totalAppearances: totalFilms})
+                console.log("O planeta ".concat(name).concat(" tem ").concat(totalFilms).concat(" aparições")) 
+                   
+                let planet = new Planet({name, climate, terrain, appearances: totalFilms})
                 this.planetService.create(planet)
 
                 return res.status(201).json({result: { planet }})

@@ -81,7 +81,7 @@ mongoose - (Ferramenta de modelagem de objetos do MongoDB trabalhada em um ambie
 
 dotenv - (Configura uma variável de ambiente, no qual foi usada para chave ao acesso ao MongoDB)
 
-star-wars-api - (API Star Wars utilizada para aplicações do projeto)
+axios - (Biblioteca Javascript para fazer request HTTP do Node)
 
 ------------------------
 
